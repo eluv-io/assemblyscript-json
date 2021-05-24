@@ -284,7 +284,7 @@ export class Arr extends Value {
         "[" +
         this._arr
           .map<string>((val: Value, i: i32, _arr: Value[]): string =>
-            val.toString()
+          "\""+val.toString()+"\""
           )
           .join(",") +
         "]"
