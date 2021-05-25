@@ -268,6 +268,15 @@ export class Bool extends Value {
   }
 }
 
+function quoteValue(val: Value, i: i32, _arr: Value[]): string {
+  if (val.isString){
+    return "\""+val.toString()+"\""
+  }else{
+    return val.toString();
+  }
+
+}
+
 export class Arr extends Value {
     _arr: Array<Value>;
     constructor() {
@@ -279,13 +288,13 @@ export class Arr extends Value {
       this._arr.push(obj);
     }
 
+
+
     toString(): string {
       return (
         "[" +
         this._arr
-          .map<string>((val: Value, i: i32, _arr: Value[]): string =>
-          "\""+val.toString()+"\""
-          )
+          .map<string>(quoteValue)
           .join(",") +
         "]"
       );
@@ -295,7 +304,6 @@ export class Arr extends Value {
       return this._arr;
     }
 }
-
 export class Obj extends Value {
     _obj: Map<string, Value>;
     keys: Array<string>;
